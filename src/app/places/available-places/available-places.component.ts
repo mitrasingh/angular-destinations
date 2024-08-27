@@ -31,7 +31,8 @@ export class AvailablePlacesComponent implements OnInit {
           this.places.set(places);
         },
         error: (error) => {
-          this.error.set(error.message);
+          console.log(error);
+          this.error.set('Something went wrong...');
         },
         complete: () => {
           this.isFetching.set(false);
