@@ -15,17 +15,22 @@ import { map } from 'rxjs';
 })
 export class AvailablePlacesComponent implements OnInit {
   places = signal<Place[] | undefined>(undefined);
+  isFetching = signal(false);
   private httpClient = inject(HttpClient);
   private destroyRef = inject(DestroyRef);
 
   // get returns an observable which means you need to subscribe to trigger the request
   ngOnInit() {
+    this.isFetching.set(true);
     const subscription = this.httpClient
       .get<{ places: Place[] }>('http://localhost:3000/places')
       .pipe(map((res) => res.places))
       .subscribe({
         next: (places) => {
           this.places.set(places);
+        },
+        complete: () => {
+          this.isFetching.set(false);
         },
       });
     this.destroyRef.onDestroy(() => {
