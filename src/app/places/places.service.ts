@@ -17,7 +17,6 @@ export class PlacesService {
       'http://localhost:3000/places',
       'Something went wrong fetching the available places'
     );
-    a;
   }
 
   loadUserPlaces() {}
