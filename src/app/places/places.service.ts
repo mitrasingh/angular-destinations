@@ -17,12 +17,13 @@ export class PlacesService {
       'http://localhost:3000/places',
       'Something went wrong fetching the available places'
     );
+    a;
   }
 
   loadUserPlaces() {}
 
   addPlaceToUserPlaces(placeId: string) {
-    this.httpClient.put('http://localhost:3000/user-places', {
+    return this.httpClient.put('http://localhost:3000/user-places', {
       placeId: placeId,
     });
   }
