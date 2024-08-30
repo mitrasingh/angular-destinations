@@ -13,7 +13,6 @@ import { Place } from '../place.model';
   imports: [PlacesContainerComponent, PlacesComponent],
 })
 export class UserPlacesComponent implements OnInit {
-  places = signal<Place[] | undefined>(undefined);
   isFetching = signal(false);
   error = signal('');
   private placesService = inject(PlacesService);
