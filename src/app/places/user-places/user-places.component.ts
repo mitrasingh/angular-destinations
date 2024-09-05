@@ -3,6 +3,7 @@ import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { PlacesContainerComponent } from '../places-container/places-container.component';
 import { PlacesComponent } from '../places.component';
 import { PlacesService } from '../places.service';
+import { Place } from '../place.model';
 
 @Component({
   selector: 'app-user-places',
@@ -29,6 +30,17 @@ export class UserPlacesComponent implements OnInit {
         this.isFetching.set(false);
       },
     });
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
+  }
+
+  onSelectRemovePlace(selectedPlace: Place) {
+    const subscription = this.placesService
+      .removeUserPlace(selectedPlace)
+      .subscribe({
+        next: (resData) => console.log(resData),
+      });
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
     });
