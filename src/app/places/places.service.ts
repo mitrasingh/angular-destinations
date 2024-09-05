@@ -55,16 +55,15 @@ export class PlacesService {
 
   // work on removing place
   removeUserPlace(place: Place) {
-    const currentPlaces = this.userPlaces();
+    // const currentPlaces = this.userPlaces();
+    console.log(place.id);
 
-    if (currentPlaces.some((p) => p.id === place.id)) {
-    }
+    // if (currentPlaces.some((p) => p.id === place.id)) {
+    // }
 
-    const updatedItems = items.filter((item) => item.id !== targetId);
+    // const updatedItems = items.filter((item) => item.id !== targetId);
 
-    return this.httpClient.delete('http://localhost:3000/user-places/:id', {
-      placeId: place.id,
-    });
+    return this.httpClient.delete('http://localhost:3000/user-places/:id', {});
   }
 
   private fetchPlaces(url: string, errorMessage: string) {
