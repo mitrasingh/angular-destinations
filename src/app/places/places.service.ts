@@ -53,7 +53,19 @@ export class PlacesService {
       );
   }
 
-  removeUserPlace(place: Place) {}
+  // work on removing place
+  removeUserPlace(place: Place) {
+    const currentPlaces = this.userPlaces();
+
+    if (currentPlaces.some((p) => p.id === place.id)) {
+    }
+
+    const updatedItems = items.filter((item) => item.id !== targetId);
+
+    return this.httpClient.delete('http://localhost:3000/user-places/:id', {
+      placeId: place.id,
+    });
+  }
 
   private fetchPlaces(url: string, errorMessage: string) {
     return this.httpClient.get<{ places: Place[] }>(url).pipe(
