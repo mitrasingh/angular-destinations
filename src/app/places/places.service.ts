@@ -55,15 +55,25 @@ export class PlacesService {
 
   // work on removing place
   removeUserPlace(place: Place) {
-    // const currentPlaces = this.userPlaces();
-    console.log(place.id);
+    console.log('http://localhost:3000/user-places/' + place.id);
+    const prevPlaces = this.userPlaces();
 
-    // if (currentPlaces.some((p) => p.id === place.id)) {
-    // }
+    if (prevPlaces.some((p) => p.id === place.id)) {
+      const updatedPlaces = prevPlaces.filter((p) => p.id !== place.id);
+      this.userPlaces.set(updatedPlaces);
+    }
 
-    // const updatedItems = items.filter((item) => item.id !== targetId);
-
-    return this.httpClient.delete('http://localhost:3000/user-places/:id', {});
+    return this.httpClient
+      .delete('http://localhost:3000/user-places/:' + place.id, {})
+      .pipe(
+        catchError((error) => {
+          this.userPlaces.set(prevPlaces);
+          this.errorService.showError('Failed to remove selected place.');
+          return throwError(
+            () => new Error('Failed to remove selected place.')
+          );
+        })
+      );
   }
 
   private fetchPlaces(url: string, errorMessage: string) {
