@@ -8,7 +8,7 @@
     [places]="places()!"
     (selectPlace)="onSelectRemovePlace($event)"
   />
-  } @else if (places()?.length === 0) {
+  } @else if (places().length === 0) {
   <p class="fallback-text">Unfortunately, no places could be found.</p>
   }
 </app-places-container>
