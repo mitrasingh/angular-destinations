@@ -57,8 +57,10 @@ export class PlacesService {
   removeUserPlace(place: Place) {
     console.log('http://localhost:3000/user-places/' + place.id);
     const prevPlaces = this.userPlaces();
-    const updatedPlaces = prevPlaces.filter((p) => p.id !== place.id);
-    this.userPlaces.set(updatedPlaces);
+
+    if (prevPlaces.some((p) => p.id === place.id)) {
+      this.userPlaces.set(prevPlaces.filter((p) => p.id !== place.id));
+    }
 
     return this.httpClient
       .delete('http://localhost:3000/user-places/' + place.id, {})
